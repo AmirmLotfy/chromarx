@@ -7,8 +7,8 @@ interface MainLayoutProps {
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <div className="min-h-screen bg-background p-4 fade-in">
-      <div className="max-w-[1600px] mx-auto space-y-4">
+    <div className="min-h-screen bg-background">
+      <div className="container py-4 space-y-4 mx-auto">
         {children}
       </div>
     </div>

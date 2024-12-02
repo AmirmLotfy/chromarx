@@ -54,69 +54,28 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground dark:bg-background dark:text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Prevent horizontal scroll */
+  #root {
+    @apply max-w-full overflow-x-hidden;
+  }
+  
+  .container {
+    @apply px-4 mx-auto max-w-[1600px];
   }
 }
 
-.glass-morphism {
-  @apply bg-white bg-opacity-20 backdrop-blur-lg;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+.bookmark-item {
+  @apply relative transition-all duration-200;
 }
 
-.bookmark-card {
-  @apply transition-all duration-300 ease-in-out;
+.bookmark-item.most-visited {
+  @apply ring-2 ring-primary ring-opacity-50 bg-primary/5;
 }
 
-.bookmark-card:hover {
-  @apply transform -translate-y-1;
-}
-
-.fade-in {
-  @apply animate-fadeIn;
-}
-
-.slide-in {
-  @apply animate-slideIn;
-}
-
-/* Markdown Styling */
-.prose {
-  @apply text-foreground;
-}
-
-.prose p {
-  @apply mb-4;
-}
-
-.prose h1, .prose h2, .prose h3, .prose h4 {
-  @apply font-bold mb-4;
-}
-
-.prose ul, .prose ol {
-  @apply pl-6 mb-4;
-}
-
-.prose ul {
-  @apply list-disc;
-}
-
-.prose ol {
-  @apply list-decimal;
-}
-
-.prose code {
-  @apply bg-muted px-1.5 py-0.5 rounded text-sm;
-}
-
-.prose pre {
-  @apply bg-muted p-4 rounded-lg overflow-x-auto mb-4;
-}
-
-.prose a {
-  @apply text-primary underline hover:text-primary/80;
-}
-
-.prose blockquote {
-  @apply border-l-4 border-muted pl-4 italic;
+.visit-count {
+  @apply absolute top-2 right-2 text-xs px-2 py-1 rounded-full bg-primary/10 text-primary;
 }
