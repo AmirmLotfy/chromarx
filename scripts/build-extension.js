@@ -31,13 +31,8 @@ archive.on('error', (err) => {
 // Pipe archive data to the file
 archive.pipe(output);
 
-// Add the built files to the archive, excluding manifest.json and icons from dist/
-archive.directory('dist/', false, (data) => {
-  if (data.name === 'manifest.json' || data.name.startsWith('icons/')) {
-    return false;
-  }
-  return data;
-});
+// Add the built files to the archive
+archive.directory('dist/', false);
 
 // Add manifest.json from public directory
 archive.file('public/manifest.json', { name: 'manifest.json' });
