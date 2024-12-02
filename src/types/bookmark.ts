@@ -10,6 +10,8 @@ export interface Bookmark {
   parentId?: string;
   isSelected?: boolean;
   summary?: string;
+  visitCount?: number;
+  domain?: string;
 }
 
 export interface Category {

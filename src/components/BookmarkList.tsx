@@ -46,7 +46,9 @@ export const BookmarkList = ({
           {bookmarks.map((bookmark) => (
             <div
               key={bookmark.id}
-              className={`flex items-center space-x-4 p-3 rounded-lg cursor-pointer border border-transparent transition-all duration-200 ${
+              className={`bookmark-item flex items-center space-x-4 p-3 rounded-lg cursor-pointer border border-transparent transition-all duration-200 ${
+                bookmark.visitCount && bookmark.visitCount > 5 ? 'most-visited' : ''
+              } ${
                 selectedBookmark?.id === bookmark.id 
                   ? 'bg-accent/20 border-accent/30 shadow-sm' 
                   : 'hover:bg-accent/10 hover:border-accent/20'
@@ -64,6 +66,11 @@ export const BookmarkList = ({
                   bookmark={bookmark} 
                   privacyMode={settings.privacyMode} 
                 />
+                {bookmark.visitCount && bookmark.visitCount > 0 && (
+                  <span className="visit-count">
+                    {bookmark.visitCount} visits
+                  </span>
+                )}
               </div>
               <BookmarkActions bookmark={bookmark} />
             </div>
