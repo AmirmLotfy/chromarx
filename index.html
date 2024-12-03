@@ -7,14 +7,7 @@
     <meta name="description" content="Created by Amir Lotfy" />
     <meta name="author" content="Amir Lotfy" />
     <meta property="og:image" content="/og-image.png" />
-    <script>
-      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-      if (localStorage.theme === 'dark') {
-        document.documentElement.classList.add('dark')
-      } else {
-        document.documentElement.classList.remove('dark')
-      }
-    </script>
+    <script src="/theme-init.js" defer></script>
   </head>
 
   <body>
