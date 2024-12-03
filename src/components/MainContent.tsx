@@ -3,15 +3,14 @@ import { CategoryFilter } from "@/components/CategoryFilter";
 import { FeatureButtons } from "@/components/FeatureButtons";
 import { AIFeatures } from "@/components/AIFeatures";
 import { CleanupDialog } from "@/components/CleanupDialog";
-import { BookmarkList } from "@/components/BookmarkList";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { FocusMode } from "@/components/FocusMode";
 import { EntertainmentMode } from "@/components/EntertainmentMode";
-import { TimeDashboard } from "@/components/TimeDashboard"; // Importing TimeDashboard
-import { DomainGroup } from "@/components/DomainGroup"; // Importing DomainGroup
+import { BookmarkStats } from "@/components/dashboard/BookmarkStats";
+import { BookmarkGroup } from "@/components/bookmark/BookmarkGroup";
 import { Bookmark, Category } from "@/types/bookmark";
 import { SupportedLanguage } from "@/utils/translationUtils";
-import { filterFocusBookmarks, filterEntertainmentBookmarks } from "@/utils/focusModeUtils";
+import { filterFocusBookmarks, filterEntertainmentBookmarks, groupBookmarksByDomain } from "@/utils/focusModeUtils";
 import { useState } from "react";
 import { Separator } from "./ui/separator";
 
@@ -71,42 +70,11 @@ export const MainContent = ({
     ? filterEntertainmentBookmarks(filteredBookmarks)
     : filteredBookmarks;
 
-  // Group bookmarks by domain
-  const groupedBookmarks = displayedBookmarks.reduce((groups, bookmark) => {
-    const domain = new URL(bookmark.url).hostname;
-    if (!groups[domain]) {
-      groups[domain] = [];
-    }
-    groups[domain].push(bookmark);
-    return groups;
-  }, {} as Record<string, Bookmark[]>);
-
-  const handleRemoveBookmarks = async (bookmarkIds: string[]) => {
-    if (typeof chrome !== 'undefined' && chrome.bookmarks) {
-      try {
-        await Promise.all(bookmarkIds.map(id => chrome.bookmarks.remove(id)));
-        onBookmarksRemoved?.(bookmarkIds);
-      } catch (error) {
-        console.error('Error removing bookmarks:', error);
-      }
-    }
-  };
-
-  const handleSelectAll = () => {
-    const newSelected = filteredBookmarks.map(b => b.id);
-    setSelectedBookmark(null);
-    handleBookmarkSelect(newSelected);
-  };
-
-  const handleClearSelection = () => {
-    setSelectedBookmark(null);
-    handleBookmarkSelect([]);
-  };
+  const groupedBookmarks = groupBookmarksByDomain(displayedBookmarks);
 
   return (
-    <div className="col-span-2">
+    <div className="content-wrapper">
       <div className="space-y-6 p-6 rounded-lg">
-        {/* Search and Category Section */}
         <div className="space-y-6">
           <div className="flex items-center justify-between gap-6">
             <SearchBar onSearch={onSearch} />
@@ -125,13 +93,10 @@ export const MainContent = ({
 
         <Separator className="my-6" />
 
-        {/* Time Dashboard */}
-        <TimeDashboard bookmarks={displayedBookmarks} />
+        <BookmarkStats bookmarks={displayedBookmarks} />
 
-        {/* Controls Section */}
         <div className="space-y-4">
           <div className="flex items-center gap-4">
-            {/* Mode Toggles */}
             <div className="flex gap-2">
               <FocusMode 
                 enabled={focusModeEnabled}
@@ -150,29 +115,27 @@ export const MainContent = ({
             </div>
           </div>
 
-          {/* Feature Buttons */}
           <div className="flex flex-wrap gap-2">
             <FeatureButtons 
               onSort={onSort} 
               bookmarks={displayedBookmarks}
               selectedBookmarks={selectedBookmarks}
-              onSelectAll={handleSelectAll}
-              onClearSelection={handleClearSelection}
+              onSelectAll={() => handleBookmarkSelect(displayedBookmarks.map(b => b.id))}
+              onClearSelection={() => handleBookmarkSelect([])}
             />
             <CleanupDialog 
               bookmarks={displayedBookmarks}
-              onRemoveBookmarks={handleRemoveBookmarks}
+              onRemoveBookmarks={onBookmarksRemoved}
             />
           </div>
         </div>
 
         <Separator className="my-6" />
 
-        {/* AI Features Section */}
         {settings.enableAI && (
           <div className="mb-6">
             <AIFeatures 
-              currentBookmark={selectedBookmark || undefined}
+              currentBookmark={selectedBookmark}
               selectedBookmarks={selectedBookmarks}
               bookmarks={displayedBookmarks}
               onCategoryUpdate={handleCategoryUpdate}
@@ -186,10 +149,9 @@ export const MainContent = ({
           </div>
         )}
 
-        {/* Bookmarks List */}
         <div className="space-y-6">
           {Object.entries(groupedBookmarks).map(([domain, domainBookmarks]) => (
-            <DomainGroup
+            <BookmarkGroup
               key={domain}
               domain={domain}
               bookmarks={domainBookmarks}
