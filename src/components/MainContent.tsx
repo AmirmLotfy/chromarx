@@ -7,6 +7,8 @@ import { BookmarkList } from "@/components/BookmarkList";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { FocusMode } from "@/components/FocusMode";
 import { EntertainmentMode } from "@/components/EntertainmentMode";
+import { TimeDashboard } from "@/components/TimeDashboard"; // Importing TimeDashboard
+import { DomainGroup } from "@/components/DomainGroup"; // Importing DomainGroup
 import { Bookmark, Category } from "@/types/bookmark";
 import { SupportedLanguage } from "@/utils/translationUtils";
 import { filterFocusBookmarks, filterEntertainmentBookmarks } from "@/utils/focusModeUtils";
@@ -69,6 +71,16 @@ export const MainContent = ({
     ? filterEntertainmentBookmarks(filteredBookmarks)
     : filteredBookmarks;
 
+  // Group bookmarks by domain
+  const groupedBookmarks = displayedBookmarks.reduce((groups, bookmark) => {
+    const domain = new URL(bookmark.url).hostname;
+    if (!groups[domain]) {
+      groups[domain] = [];
+    }
+    groups[domain].push(bookmark);
+    return groups;
+  }, {} as Record<string, Bookmark[]>);
+
   const handleRemoveBookmarks = async (bookmarkIds: string[]) => {
     if (typeof chrome !== 'undefined' && chrome.bookmarks) {
       try {
@@ -112,6 +124,9 @@ export const MainContent = ({
         </div>
 
         <Separator className="my-6" />
+
+        {/* Time Dashboard */}
+        <TimeDashboard bookmarks={displayedBookmarks} />
 
         {/* Controls Section */}
         <div className="space-y-4">
@@ -172,26 +187,16 @@ export const MainContent = ({
         )}
 
         {/* Bookmarks List */}
-        <BookmarkList
-          bookmarks={displayedBookmarks}
-          onBookmarkSelect={setSelectedBookmark}
-          selectedBookmark={selectedBookmark || undefined}
-          selectedBookmarks={selectedBookmarks}
-          onBookmarkSelectToggle={handleBookmarkSelect}
-          settings={{ privacyMode: settings.privacyMode }}
-          categories={categories}
-          onAddCategory={onAddCategory}
-          onDeleteCategory={onDeleteCategory}
-          onAddAISuggestion={(suggestion: string) => {
-            // Handle AI suggestions for categories
-            const category: Category = {
-              id: Date.now().toString(),
-              name: suggestion,
-              isAISuggested: true
-            };
-            onAddCategory(category);
-          }}
-        />
+        <div className="space-y-6">
+          {Object.entries(groupedBookmarks).map(([domain, domainBookmarks]) => (
+            <DomainGroup
+              key={domain}
+              domain={domain}
+              bookmarks={domainBookmarks}
+              onBookmarkSelect={setSelectedBookmark}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );
