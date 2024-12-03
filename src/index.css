@@ -66,8 +66,19 @@
   .container {
     @apply px-4 mx-auto max-w-[1600px];
   }
+
+  /* Sidebar styles */
+  .sidebar {
+    @apply w-64 flex-shrink-0 h-screen overflow-y-auto border-r border-border;
+  }
+
+  /* Main content area */
+  .main-content {
+    @apply flex-1 h-screen overflow-y-auto p-6;
+  }
 }
 
+/* Bookmark styles */
 .bookmark-item {
   @apply relative transition-all duration-200;
 }
@@ -78,4 +89,60 @@
 
 .visit-count {
   @apply absolute top-2 right-2 text-xs px-2 py-1 rounded-full bg-primary/10 text-primary;
+}
+
+/* Domain group styles */
+.domain-group {
+  @apply mb-6 p-4 rounded-lg border border-border;
+}
+
+.domain-header {
+  @apply flex items-center justify-between mb-4;
+}
+
+.domain-title {
+  @apply text-lg font-semibold;
+}
+
+.domain-stats {
+  @apply text-sm text-muted-foreground;
+}
+
+/* Time tracking dashboard */
+.time-dashboard {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6;
+}
+
+.stat-card {
+  @apply p-4 rounded-lg border border-border bg-card;
+}
+
+.stat-title {
+  @apply text-sm font-medium text-muted-foreground;
+}
+
+.stat-value {
+  @apply text-2xl font-bold mt-2;
+}
+
+/* Category management */
+.category-tag {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary;
+}
+
+.category-tag.ai-suggested {
+  @apply bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300;
+}
+
+/* Focus and Entertainment mode indicators */
+.mode-indicator {
+  @apply fixed top-4 right-4 px-3 py-1.5 rounded-full text-sm font-medium animate-pulse;
+}
+
+.focus-mode {
+  @apply bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300;
+}
+
+.entertainment-mode {
+  @apply bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300;
 }

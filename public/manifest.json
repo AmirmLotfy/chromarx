@@ -3,7 +3,13 @@
   "name": "ChroMarx",
   "version": "1.0.0",
   "description": "AI-powered bookmark management for Chrome",
-  "permissions": ["bookmarks", "storage", "tabs"],
+  "permissions": [
+    "bookmarks",
+    "storage",
+    "tabs",
+    "activeTab",
+    "alarms"
+  ],
   "action": {
     "default_popup": "index.html",
     "default_icon": {
