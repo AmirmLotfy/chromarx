@@ -12,6 +12,7 @@ export interface Bookmark {
   summary?: string;
   visitCount?: number;
   domain?: string;
+  timeSpent?: number;
 }
 
 export interface Category {
