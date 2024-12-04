@@ -1,0 +1,44 @@
+@import './base.css';
+
+.glass-morphism {
+  @apply bg-white/5 backdrop-blur-sm transition-all duration-100;
+}
+
+.bookmark-card {
+  @apply transition-all duration-150 ease-in-out p-4 rounded-lg border border-border/40;
+}
+
+.bookmark-card:hover {
+  @apply transform -translate-y-1 bg-accent/5;
+}
+
+.fade-in {
+  @apply animate-fadeIn;
+}
+
+.slide-in {
+  @apply animate-slideIn;
+}
+
+.theme-transition {
+  @apply transition-all duration-100;
+}
+
+/* Enhanced scrolling styles */
+.overflow-container {
+  @apply h-full overflow-hidden;
+}
+
+.scroll-content {
+  @apply h-full overflow-y-auto overflow-x-hidden px-4;
+}
+
+/* Enhanced z-index stacking */
+.sidebar-overlay {
+  @apply z-50;
+}
+
+/* Enhanced transitions */
+.sidebar-transition {
+  @apply transition-all duration-300 ease-in-out;
+}
