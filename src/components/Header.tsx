@@ -52,24 +52,24 @@ export const Header = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-14 items-center justify-between px-4">
+    <header className="fixed top-0 left-0 right-0 z-40 h-14 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border/40">
+      <div className="flex h-full items-center justify-between px-4 max-w-[400px] mx-auto">
         <div className="flex items-center gap-2">
           <Logo />
-          <h1 className="text-lg font-semibold text-primary">ChroMarx</h1>
+          <h1 className="text-base font-semibold text-primary">ChroMarx</h1>
         </div>
         
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-9 w-9">
-              <Menu className="h-5 w-5" />
+            <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Menu className="h-4 w-4" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[280px] sm:w-[320px]">
+          <SheetContent side="right" className="w-[280px]">
             <SheetHeader>
               <SheetTitle>Menu</SheetTitle>
             </SheetHeader>
-            <div className="flex flex-col gap-4 mt-6">
+            <div className="flex flex-col gap-3 mt-4">
               <ImportBookmarksDialog
                 onImport={(selectedFolders) => {
                   if (typeof chrome !== 'undefined' && chrome.bookmarks) {
@@ -99,7 +99,7 @@ export const Header = ({
                 variant="outline"
                 size="sm"
                 onClick={handleDownloadBookmarks}
-                className="w-full flex items-center gap-2 justify-center"
+                className="w-full flex items-center gap-2 justify-center h-9"
               >
                 <Download className="h-4 w-4" />
                 Download

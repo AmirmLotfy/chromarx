@@ -83,32 +83,9 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-background p-2 sm:p-4 fade-in overflow-x-hidden">
-      <div className="max-w-[1600px] mx-auto space-y-4">
-        <div className="flex flex-col sm:flex-row items-center justify-between p-2 sm:p-4 border-b gap-4 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 rounded-lg">
-          <div className="flex items-center gap-2 w-full sm:w-auto justify-center sm:justify-start">
-            <Logo />
-            <h1 className="text-xl font-semibold text-primary">ChroMarx</h1>
-          </div>
-          <div className="flex flex-wrap items-center gap-2 justify-center w-full sm:w-auto">
-            <ImportBookmarksDialog onImport={handleImportBookmarks} folders={[]} />
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleDownloadBookmarks}
-              className="flex items-center gap-2 whitespace-nowrap"
-            >
-              <Download className="h-4 w-4" />
-              <span className="hidden sm:inline">Download Bookmarks</span>
-              <span className="sm:hidden">Download</span>
-            </Button>
-            <Settings 
-              onSettingsChange={setSettings} 
-              initialSettings={settings}
-            />
-          </div>
-        </div>
-        <div className="relative px-2 sm:px-0">
+    <div className="flex flex-col min-h-screen bg-background max-w-[400px] mx-auto relative">
+      <div className="pt-14 pb-16 h-screen overflow-hidden">
+        <div className="h-full overflow-y-auto">
           {children}
         </div>
       </div>
