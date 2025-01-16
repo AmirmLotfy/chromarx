@@ -88,8 +88,8 @@ export const MainContent = ({
   };
 
   return (
-    <div className="col-span-2">
-      <div className="space-y-6 p-6 rounded-lg">
+    <div className="w-full h-full">
+      <div className="p-2 md:p-4 space-y-4">
         <BookmarksContainer
           filteredBookmarks={displayedBookmarks}
           selectedBookmark={selectedBookmark}

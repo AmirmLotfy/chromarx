@@ -1,63 +1,56 @@
 @import './base.css';
 
-/* Enhanced container sizing */
 .extension-container {
-  @apply w-[60vw] min-w-[400px] max-w-[1200px];
+  @apply w-full min-h-screen;
 }
 
-/* Enhanced button styling */
 .toggle-button {
   @apply shadow-lg hover:shadow-xl transition-all duration-300;
 }
 
-/* Enhanced tab styling */
 .tab-content {
-  @apply p-4 rounded-lg bg-background/50 backdrop-blur-sm border border-border/40;
+  @apply p-2 md:p-4 rounded-lg bg-background/50 backdrop-blur-sm;
 }
 
-/* Enhanced card styling */
 .content-card {
-  @apply p-4 rounded-lg bg-background/95 backdrop-blur-sm border border-border/40 
-  hover:border-border/60 transition-all duration-200;
+  @apply p-3 md:p-4 rounded-lg bg-background/95 backdrop-blur-sm border border-border/40 
+  hover:border-border/60 transition-all duration-200 w-full;
 }
 
-/* Enhanced header styling */
 .extension-header {
   @apply sticky top-0 z-40 backdrop-blur-sm bg-background/95 border-b border-border/40 
-  px-4 py-3 flex items-center justify-between;
+  px-3 py-2 md:px-4 md:py-3 flex items-center justify-between w-full;
 }
 
-/* Enhanced list styling */
 .content-list {
-  @apply space-y-2 p-2;
+  @apply space-y-2 w-full;
 }
 
-/* Enhanced input styling */
 .content-input {
   @apply w-full px-3 py-2 rounded-md border border-border/40 bg-background/50 
   focus:border-primary/40 focus:ring-1 focus:ring-primary/40 transition-all duration-200;
 }
 
-/* Enhanced section styling */
 .content-section {
-  @apply space-y-4 p-4;
+  @apply space-y-3 md:space-y-4 p-3 md:p-4 w-full;
 }
 
-/* Enhanced grid layouts */
 .content-grid {
-  @apply grid gap-4 p-4;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  @apply grid gap-3 md:gap-4 p-3 md:p-4 w-full;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-/* Enhanced scrollbar styling */
-::-webkit-scrollbar {
-  @apply w-2;
-}
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  .extension-container {
+    @apply px-2;
+  }
 
-::-webkit-scrollbar-track {
-  @apply bg-background/50;
-}
+  .content-card {
+    @apply mx-2;
+  }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-primary/20 rounded-full hover:bg-primary/30 transition-colors;
+  .content-section {
+    @apply px-2;
+  }
 }
