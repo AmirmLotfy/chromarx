@@ -10,6 +10,8 @@ body {
   overflow: hidden;
   width: 100vw;
   height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
@@ -23,20 +25,9 @@ body {
   min-height: 100vh;
 }
 
-/* Mobile-first responsive design */
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
-  
-  .scroll-content {
-    padding: 0.5rem;
-  }
-}
-
-/* Improved scrollbar for mobile */
+/* Mobile-optimized scrollbar */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -45,9 +36,30 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: rgba(155, 135, 245, 0.2);
-  border-radius: 4px;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(155, 135, 245, 0.4);
+}
+
+/* Safe area padding for mobile devices */
+@supports (padding: max(0px)) {
+  .safe-bottom {
+    padding-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+/* Touch-friendly tap targets */
+button, 
+a {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Prevent text selection on interactive elements */
+.no-select {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
 }
